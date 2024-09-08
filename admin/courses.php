@@ -12,9 +12,20 @@ if (!isset($_SESSION['id'])) {
 // Get DB instance. function is defined in config.php
 $db = getDbInstance();
 
-// Get Dashboard information
-$numUsers = $db->getValue("users", "count(*)");
-$numCourses = $db->getValue("courses", "count(*)");
+// Pagination setup
+$limit = 5; // Number of records per page
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = max($page, 1); // Ensure page is at least 1
+$offset = ($page - 1) * $limit;
+
+// Get total number of courses
+$totalCourses = $db->getValue("courses", "count(*)");
+
+// Fetch course data for current page
+$courses = $db->orderBy('id', 'ASC')->get('courses', $limit, $offset);
+
+// Calculate total pages
+$totalPages = ceil($totalCourses / $limit);
 
 // Define the base path of your admin directory
 $adminBase = __DIR__; // Current directory, which is the 'admin' directory
@@ -27,117 +38,110 @@ include_once $adminBase . '/includes/header.php';
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Courses Listing</h4>
-            <p class="card-description"> Add class <code>.table-striped</code>
-            </p>
+            <p class="card-description"> Courses <code>/ List</code></p>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th> User </th>
-                            <th> First name </th>
-                            <th> Progress </th>
-                            <th> Amount </th>
-                            <th> Deadline </th>
+                            <th>Course</th>
+                            <th>Title</th>
+                            <th>Label</th>
+                            <th>No of Stars</th>
+                            <th>Amount</th>
+                            <th>Discount Amount</th>
+                            <th>No of Weeks</th>
+                            <th>No of Lessons</th>
+                            <th>No of Students</th>
+                            <th>Status</th>
+                            <th>Created Time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face1.jpg" alt="image" />
-                            </td>
-                            <td> Herman Beck </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $ 77.99 </td>
-                            <td> May 15, 2015 </td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face2.jpg" alt="image" />
-                            </td>
-                            <td> Messsy Adam </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $245.30 </td>
-                            <td> July 1, 2015 </td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face3.jpg" alt="image" />
-                            </td>
-                            <td> John Richards </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $138.00 </td>
-                            <td> Apr 12, 2015 </td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face4.jpg" alt="image" />
-                            </td>
-                            <td> Peter Meggik </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $ 77.99 </td>
-                            <td> May 15, 2015 </td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face5.jpg" alt="image" />
-                            </td>
-                            <td> Edward </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $ 160.25 </td>
-                            <td> May 03, 2015 </td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face6.jpg" alt="image" />
-                            </td>
-                            <td> John Doe </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $ 123.21 </td>
-                            <td> April 05, 2015 </td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="../../assets/images/faces/face7.jpg" alt="image" />
-                            </td>
-                            <td> Henry Tom </td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-                            <td> $ 150.00 </td>
-                            <td> June 16, 2015 </td>
-                        </tr>
+                        <?php if (empty($courses)) : ?>
+                            <tr>
+                                <td colspan="11" class="text-center">No record found</td>
+                            </tr>
+                        <?php else : ?>
+                            <?php foreach ($courses as $course) : ?>
+                                <tr>
+                                    <td class="py-1">
+                                        <?php
+                                        // Generate a random number between 1 and 27
+                                        
+                                        // Construct the image file name
+                                        $thumbnail = $course['thumbnail'];
+                                        $imageFileName = "../" . $thumbnail;
+                                        ?>
+                                        <img src="<?php echo htmlspecialchars($imageFileName); ?>" alt="Course Image" />
+                                    </td>
+                                    <td><?php echo isset($course['title']) ? htmlspecialchars($course['title']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['label']) ? htmlspecialchars($course['label']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['no_of_star']) ? htmlspecialchars($course['no_of_star']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['amount']) ? htmlspecialchars($course['amount']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['discount_with_amount']) ? htmlspecialchars($course['discount_with_amount']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['no_of_weeks']) ? htmlspecialchars($course['no_of_weeks']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['no_of_lessons']) ? htmlspecialchars($course['no_of_lessons']) : 'N/A'; ?></td>
+                                    <td><?php echo isset($course['no_of_students']) ? htmlspecialchars($course['no_of_students']) : 'N/A'; ?></td>
+                                    <td>
+                                        <?php 
+                                        // Determine the badge class based on status
+                                        $statusClass = isset($course['status']) && $course['status'] === 'published' ? 'badge-opacity-success' : 'badge-opacity-danger'; 
+                                        
+                                        // Capitalize the first letter of the status
+                                        $status = isset($course['status']) ? ucfirst(htmlspecialchars($course['status'])) : 'N/A';
+                                        ?>
+                                        <div class="badge <?php echo $statusClass; ?> me-3">
+                                            <?php echo $status; ?>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                        // Original date string
+                                        $dateStr = isset($course['created_at']) ? $course['created_at'] : '';
+
+                                        if ($dateStr) {
+                                            // Create a DateTime object from the original date string
+                                            $date = new DateTime($dateStr);
+
+                                            // Format the date to the desired format
+                                            $formattedDate = $date->format('d-m-Y h:i A');
+                                            
+                                            // Output the formatted date
+                                            echo htmlspecialchars($formattedDate);
+                                        } else {
+                                            echo 'N/A';
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
+
+            <!-- Pagination Links -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item <?php echo $page <= 1 ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo max($page - 1, 1); ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                        <li class="page-item <?php echo $i == $page ? 'active' : ''; ?>">
+                            <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?php echo $page >= $totalPages ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="?page=<?php echo min($page + 1, $totalPages); ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-
 
 <?php include_once $adminBase . '/includes/footer.php'; ?>
