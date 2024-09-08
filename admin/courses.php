@@ -13,7 +13,7 @@ if (!isset($_SESSION['id'])) {
 $db = getDbInstance();
 
 // Pagination setup
-$limit = 5; // Number of records per page
+$limit = 10; // Number of records per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $page = max($page, 1); // Ensure page is at least 1
 $offset = ($page - 1) * $limit;
