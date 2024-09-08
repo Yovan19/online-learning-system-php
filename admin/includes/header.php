@@ -1,3 +1,24 @@
+<?php
+// Include database connection file
+require_once '../config.php';
+
+// Check if the user is logged in
+if (isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] == true) {
+    // Fetch user information from the database
+    $user_id = $_SESSION['id']; // Assuming user ID is stored in session
+    
+    // Use MysqliDb to fetch user data
+    $db = getDbInstance();
+    $db->where('id', $user_id);
+    $user = $db->getOne('users', 'username, email, profile_picture');
+    
+    // Default values if user not found
+    $username = $user['username'] ?? 'Super Admin';
+    $email = $user['email'] ?? 'superadmin@yopmail.com';
+    $profile_picture = $user['profile_picture'] ?? '../public/backend/images/faces/default.jpg'; // Default profile image path
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +71,7 @@
         <div class="navbar-menu-wrapper d-flex align-items-top">
           <ul class="navbar-nav">
             <li class="nav-item fw-semibold d-none d-lg-block ms-0">
-              <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">Super Admin</span></h1>
+              <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold"><?php echo htmlspecialchars($username); ?></span></h1>
               <h3 class="welcome-sub-text">Here's your users performance overview. </h3>
             </li>
           </ul>
@@ -62,8 +83,8 @@
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                 <div class="dropdown-header text-center">
                   <img class="img-md rounded-circle" src="../public/backend/images/faces/face8.jpg" alt="Profile image">
-                  <p class="mb-1 mt-3 fw-semibold">Super Admin</p>
-                  <p class="fw-light text-muted mb-0">superadmin@yopmail.com</p>
+                  <p class="mb-1 mt-3 fw-semibold"><?php echo htmlspecialchars($username); ?></p>
+                  <p class="fw-light text-muted mb-0"><?php echo htmlspecialchars($email); ?></p>
                 </div>
                 <!-- <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a> -->
                 <a class="dropdown-item" href="logout.php">
@@ -103,7 +124,7 @@
               </div>
             </li>
             
-            <li class="nav-item <?php echo (CURRENT_PAGE == "courses.php" || CURRENT_PAGE == "add_courses.php") ? 'active' : ''; ?>" >
+            <li class="nav-item <?php echo (CURRENT_PAGE == "courses.php" || CURRENT_PAGE == "courses-create.php") ? 'active' : ''; ?>" >
               <a class="nav-link" data-bs-toggle="collapse" href="#subMenu1" aria-expanded="false" aria-controls="subMenu1">
                 <i class="menu-icon mdi mdi-table"></i>
                 <span class="menu-title">Courses</span>
@@ -112,7 +133,7 @@
               <div class="collapse" id="subMenu1">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link" href="courses.php">List</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="add_courses.php">Add</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="courses-create.php">Add</a></li>
                 </ul>
               </div>
             </li>
