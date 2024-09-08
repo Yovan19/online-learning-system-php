@@ -22,7 +22,7 @@ $offset = ($page - 1) * $limit;
 $totalCourses = $db->getValue("courses", "count(*)");
 
 // Fetch course data for current page
-$courses = $db->orderBy('id', 'ASC')->get('courses', $limit, $offset);
+$courses = $db->orderBy('id', 'DESC')->get('courses', $limit, $offset);
 
 // Calculate total pages
 $totalPages = ceil($totalCourses / $limit);
@@ -70,7 +70,7 @@ include_once $adminBase . '/includes/header.php';
                                         
                                         // Construct the image file name
                                         $thumbnail = $course['thumbnail'];
-                                        $imageFileName = "../" . $thumbnail;
+                                        $imageFileName = "../online-learning-system-php/" . $thumbnail;
                                         ?>
                                         <img src="<?php echo htmlspecialchars($imageFileName); ?>" alt="Course Image" />
                                     </td>
