@@ -15,16 +15,14 @@ $db = getDbInstance();
 // Pagination setup
 $limit = 5; // Number of records per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = $page < 1 ? 1 : $page; // Ensure page is at least 1
 $offset = ($page - 1) * $limit;
 
 // Get total number of users
-$totalUsers = $db->getValue("users", "count(*)");
+$totalUsers = $db->where('role', 'user')->getValue("users", "count(*)");
 
 // Fetch user data for current page
-$users = $db->where('role', 'user')->get('users', $limit, $offset);
-
-// Debugging statement
-// echo '<pre>'; print_r($users); echo '</pre>';
+$users = $db->where('role', 'user')->orderBy('id', 'ASC')->get('users', $limit, $offset);
 
 // Calculate total pages
 $totalPages = ceil($totalUsers / $limit);
@@ -114,7 +112,7 @@ include_once $adminBase . '/includes/header.php';
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li class="page-item <?php echo $page <= 1 ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $page - 1; ?>" aria-label="Previous">
+                        <a class="page-link" href="?page=<?php echo max($page - 1, 1); ?>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -124,7 +122,7 @@ include_once $adminBase . '/includes/header.php';
                         </li>
                     <?php endfor; ?>
                     <li class="page-item <?php echo $page >= $totalPages ? 'disabled' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
+                        <a class="page-link" href="?page=<?php echo min($page + 1, $totalPages); ?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
