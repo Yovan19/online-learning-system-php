@@ -6,11 +6,8 @@ define('BASE_PATH', dirname(dirname(__FILE__)));
 define('APP_FOLDER', 'simpleadmin');
 define('CURRENT_PAGE', basename($_SERVER['REQUEST_URI']));
 
-// require_once BASE_PATH . '/online-learning-system-php/lib/MysqliDb.php';
-// require_once BASE_PATH . '/online-learning-system-php/app/helpers.php';
-
-require_once BASE_PATH . '/online-learning-system/lib/MysqliDb.php';
-require_once BASE_PATH . '/online-learning-system/app/helpers.php';
+require_once BASE_PATH . '/online-learning-system-php/lib/MysqliDb.php';
+require_once BASE_PATH . '/online-learning-system-php/app/helpers.php';
 
 // Database configuration
 define('DB_HOST', "localhost");
