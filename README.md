@@ -13,4 +13,4 @@ Make sure to change these credentials after the initial setup to ensure security
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/username/repository.git
+   git clone https://github.com/Yovan19/online-learning-system-php.git
