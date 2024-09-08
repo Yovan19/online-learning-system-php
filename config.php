@@ -14,14 +14,22 @@ define('DB_HOST', "localhost");
 define('DB_USER', "root");
 define('DB_PASSWORD', "");
 define('DB_NAME', "online_learning_system");
-// define('DB_PORT', "3307"); //3306
-define('DB_PORT', "3306"); //3306
+define('DB_PORT', "3307"); //3306
+// define('DB_PORT', "3306"); //3306
 
 /**
  * Get instance of DB object
+ * @return MysqliDb
  */
-function getDbInstance() {
-    return new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);
+if (!function_exists('getDbInstance')) {
+    function getDbInstance() {
+        static $db = null;
+        if ($db === null) {
+            // Initialize the database connection here
+            $db = new MysqliDb(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);
+        }
+        return $db;
+    }
 }
 
 // Example usage of getDbInstance()

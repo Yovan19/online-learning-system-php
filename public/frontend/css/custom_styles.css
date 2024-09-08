@@ -1,0 +1,19 @@
+.price {
+    display: inline; /* Ensures the .price container does not force a new line */
+}
+.original-price {
+    text-decoration: line-through; /* Adds a line-through effect to the original price */
+    color: #888; /* Optional: Makes the original price text a lighter color */
+    margin-right: 10px; /* Adds spacing between the original price and discount */
+    display: inline; /* Ensures the original price is on the same line */
+}
+.discount {
+    color: red; /* Makes the discount text red */
+    font-weight: bold; /* Optional: Makes the discount amount bold */
+    display: inline; /* Ensures the discount is on the same line */
+}
+.discount::before {
+    content: '-'; /* Adds a dash before the discount amount */
+    color: red; /* Makes the dash red */
+    font-weight: bold; /* Optional: Makes the dash bold */
+}
