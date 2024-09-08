@@ -16,25 +16,25 @@
                 </a>
 
                 <p class="footer-brand-text">
-                    Lorem ipsum dolor amet consecto adi pisicing elit sed eiusm tempor incidid unt labore dolore.
+                    Vlearn offers research backed combination of Kolb's learning technique insights from experts which ensures you learn thoroughly.
                 </p>
 
                 <div class="wrapper">
                     <span class="span">Add:</span>
 
-                    <address class="address">70-80 Upper St Norwich NR2</address>
+                    <address class="address">Surat, Gujarat, India</address>
                 </div>
 
                 <div class="wrapper">
                     <span class="span">Call:</span>
 
-                    <a href="tel:+011234567890" class="footer-link">+01 123 4567 890</a>
+                    <a href="tel:+011234567890" class="footer-link">+91 966 490 0699</a>
                 </div>
 
                 <div class="wrapper">
                     <span class="span">Email:</span>
 
-                    <a href="mailto:info@eduweb.com" class="footer-link">info@eduweb.com</a>
+                    <a href="mailto:info@vlearn.com" class="footer-link">info@vlearn.com</a>
                 </div>
 
             </div>
@@ -46,27 +46,15 @@
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">About</a>
+                    <a href="#about" class="footer-link">About</a>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">Courses</a>
+                    <a href="#courses" class="footer-link">Courses</a>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">Instructor</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Events</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Instructor Profile</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Purchase Guide</a>
+                    <a href="#" class="footer-link">Sign In/Registration</a>
                 </li>
 
             </ul>
@@ -74,31 +62,29 @@
             <ul class="footer-list">
 
                 <li>
-                    <p class="footer-list-title">Links</p>
+                    <p class="footer-list-title">Category</p>
                 </li>
 
                 <li>
-                    <a href="#" class="footer-link">Contact Us</a>
+                    <a href="#" class="footer-link">Top Trending</a>
                 </li>
-
                 <li>
-                    <a href="#" class="footer-link">Gallery</a>
+                    <a href="#" class="footer-link">Free Courses</a>
                 </li>
-
                 <li>
-                    <a href="#" class="footer-link">News & Articles</a>
+                    <a href="#" class="footer-link">New Courses</a>
                 </li>
-
                 <li>
-                    <a href="#" class="footer-link">FAQ's</a>
+                    <a href="#" class="footer-link">Web Development</a>
                 </li>
-
                 <li>
-                    <a href="#" class="footer-link">Sign In/Registration</a>
+                    <a href="#" class="footer-link">Mobile Development</a>
                 </li>
-
                 <li>
-                    <a href="#" class="footer-link">Coming Soon</a>
+                    <a href="#" class="footer-link">Beginner</a>
+                </li>
+                <li>
+                    <a href="#" class="footer-link">Advanced</a>
                 </li>
 
             </ul>
@@ -106,20 +92,6 @@
             <div class="footer-list">
 
                 <p class="footer-list-title">Contacts</p>
-
-                <p class="footer-list-text">
-                    Enter your email address to register to our newsletter subscription
-                </p>
-
-                <form action="" class="newsletter-form">
-                    <input type="email" name="email_address" placeholder="Your email" required class="input-field">
-
-                    <button type="submit" class="btn has-before">
-                        <span class="span">Subscribe</span>
-
-                        <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-                    </button>
-                </form>
 
                 <ul class="social-list">
 
@@ -164,7 +136,7 @@
         <div class="container">
 
             <p class="copyright">
-                Copyright 2022 All Rights Reserved by <a href="#" class="copyright-link">codewithsadee</a>
+                Copyright 2024 All Rights Reserved by <a href="#" class="copyright-link">VLearn</a>
             </p>
 
         </div>
