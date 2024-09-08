@@ -68,18 +68,16 @@ session_start();
             <a href="#about" class="navbar-link" data-nav-link>About</a>
           </li>
           <li class="navbar-item">
-            <a href="#" class="navbar-link" data-nav-link>Contact</a>
+            <!-- Header Actions -->
+            <div class="header-actions">
+              <a href="#" class="btn has-before">
+                <ion-icon name="person-add-outline" aria-hidden="true"></ion-icon>
+                <span class="span">Sign Up / Sign In</span>
+              </a>
+            </div>
           </li>
         </ul>
       </nav>
-
-      <!-- Header Actions -->
-      <div class="header-actions">
-        <a href="#" class="btn has-before">
-          <ion-icon name="person-add-outline" aria-hidden="true"></ion-icon>
-          <span class="span">Sign Up / Sign In</span>
-        </a>
-      </div>
 
       <div class="overlay" data-nav-toggler data-overlay></div>
 
