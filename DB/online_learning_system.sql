@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Sep 08, 2024 at 02:23 PM
+-- Generation Time: Sep 08, 2024 at 03:30 PM
 -- Server version: 10.10.2-MariaDB
 -- PHP Version: 8.1.13
 
@@ -89,18 +89,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember` tinyint(1) DEFAULT 0,
   `remember_token` varchar(255) DEFAULT NULL,
   `expires` datetime DEFAULT NULL,
+  `status` enum('active','deactive') DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `profile_picture`, `remember`, `remember_token`, `expires`, `created_at`, `updated_at`) VALUES
-(1, 'superadmin', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'superadmin@yopmail.com', 'admin', NULL, 1, 'f9d994865652887eb5d7cb5a2a600f60', '2024-10-08 14:20:19', '2024-09-07 13:17:08', '2024-09-08 14:20:19');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `profile_picture`, `remember`, `remember_token`, `expires`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'superadmin', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'superadmin@yopmail.com', 'admin', NULL, 1, 'cb668b477f71793c034198afddbeb41c', '2024-10-08 14:41:52', 'active', '2024-09-07 13:17:08', '2024-09-08 14:41:52'),
+(2, 'yovanpatel', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'yovan@yopmail.com', 'user', NULL, NULL, NULL, NULL, 'active', '2024-09-07 13:17:08', '2024-09-08 15:20:46'),
+(3, 'hirenpatel', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'hiren@yopmail.com', 'user', NULL, NULL, NULL, NULL, 'deactive', '2024-09-07 13:17:08', '2024-09-08 15:20:54'),
+(4, 'zannyshah', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'zanny@yopmail.com', 'user', NULL, NULL, NULL, NULL, 'active', '2024-09-07 13:17:08', '2024-09-08 15:20:54'),
+(5, 'ketanpatel', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'ketan@yopmail.com', 'user', NULL, NULL, NULL, NULL, 'active', '2024-09-07 13:17:08', '2024-09-08 15:20:54'),
+(6, 'bharatbalar', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'bharat@yopmail.com', 'user', NULL, NULL, NULL, NULL, 'deactive', '2024-09-07 13:17:08', '2024-09-08 15:23:54'),
+(7, 'navinjain', '$2y$10$5LDZRSj9SX/3foL7.PLQqOxBuvwvdQ3x8vmznP.8ViyyC.Lt93mcW', 'navin@yopmail.com', 'user', NULL, NULL, NULL, NULL, 'active', '2024-09-07 13:17:08', '2024-09-08 15:20:54');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
