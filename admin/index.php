@@ -105,7 +105,7 @@ include_once $adminBase . '/includes/header.php';
                                                             <div class="d-flex">
                                                                 <?php
                                                                 $thumbnail = $course['thumbnail'];
-                                                                $imageFileName = "../" . $thumbnail;
+                                                                $imageFileName = "../online-learning-system-php/" . $thumbnail;
                                                                 ?>
                                                                 <img class="img-sm rounded-10" src="<?php echo htmlspecialchars($imageFileName); ?>" alt="profile">
                                                                 <div class="wrapper ms-3">

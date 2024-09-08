@@ -14,8 +14,8 @@ define('DB_HOST', "localhost");
 define('DB_USER', "root");
 define('DB_PASSWORD', "");
 define('DB_NAME', "online_learning_system");
-define('DB_PORT', "3307"); //3306
-// define('DB_PORT', "3306"); //3306
+// define('DB_PORT', "3307"); //3306
+define('DB_PORT', "3306"); //3306
 
 /**
  * Get instance of DB object
