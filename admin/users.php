@@ -1,3 +1,28 @@
+<?php
+session_start();
+require_once '../config.php';
+require_once '../admin/includes/auth_validate.php';
+
+// Check if the user is logged in
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+// Get DB instance. function is defined in config.php
+$db = getDbInstance();
+
+// Get Dashboard information
+$numUsers = $db->getValue("users", "count(*)");
+$numCourses = $db->getValue("courses", "count(*)");
+
+// Define the base path of your admin directory
+$adminBase = __DIR__; // Current directory, which is the 'admin' directory
+
+// Include header
+include_once $adminBase . '/includes/header.php';
+?>
+
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -113,3 +138,6 @@
         </div>
     </div>
 </div>
+
+
+<?php include_once $adminBase . '/includes/footer.php'; ?>
