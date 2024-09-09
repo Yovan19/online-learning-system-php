@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-include 'config.php';
+require_once './config.php';
 // Any other common setup code (e.g., session start)
 session_start();
 ?>
